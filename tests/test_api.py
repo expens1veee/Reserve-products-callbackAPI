@@ -106,7 +106,7 @@ async def test_seed_data_success(client, db_session):
     products_before = result.scalars().all()
     assert len(products_before) == 0
 
-    response = await client.post("/seed-data")
+    response = await client.get("/seed-data")
     data = response.json()
 
     assert response.status_code == 200
@@ -140,7 +140,7 @@ async def test_seed_data_already_has_data(client, db_session, sample_product):
     products_before = result.scalars().all()
     assert len(products_before) > 0
 
-    response = await client.post("/seed-data")
+    response = await client.get("/seed-data")
     data = response.json()
 
     assert response.status_code == 400
@@ -149,7 +149,7 @@ async def test_seed_data_already_has_data(client, db_session, sample_product):
 
 @pytest.mark.asyncio
 async def test_seed_data_creates_reservations(client, db_session):
-    response = await client.post("/seed-data")
+    response = await client.get("/seed-data")
     assert response.status_code == 200
 
     result = await db_session.execute(select(ReservationsModel))

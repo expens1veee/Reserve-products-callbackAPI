@@ -84,7 +84,7 @@ async def get_reservation(reservation_id: int, session: SessionDep):
     return {"status": result_status.value}
 
 
-@router.post("/seed-data")
+@router.get("/seed-data")
 async def seed_database(session: SessionDep):
     logger.info("Запрос на заполнение базы данных тестовыми данными")
 
